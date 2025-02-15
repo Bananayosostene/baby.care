@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import { AuthenticatedUser } from "@/types/auth";
 
 const JWT_SECRET = process.env.JWT_SECRET || "qwertyuiop";
-const SIGNUP_SECRET = process.env.JWT_SECRET || "poiuytrewq";
+const SIGNUP_SECRET = process.env.SIGNUP_SECRET || "poiuytrewq";
 
 export const generateToken = (data: object) => {
   const token = jwt.sign(data, JWT_SECRET, {
