@@ -51,7 +51,7 @@ export async function validateAuthToken(
     }
 
     return { user: decodedUser, error: null };
-  } catch (error) {
+  } catch (err) {
     return {
       user: null,
       error: {

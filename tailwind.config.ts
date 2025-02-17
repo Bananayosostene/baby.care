@@ -36,12 +36,12 @@ const config: Config = {
           active: "#454545",
         },
         bt: {
-          primary: "#4B9CFF",
-          primary2: "#2962FF",
+          primary: "#2962FF",
+          primary2: "#4B9CFF",
           secondary: "#383838",
           btnHover: "#293547",
           btnHoverBlue: "#3B82F6",
-        }
+        },
       },
       fontFamily: {
         sans: ["Poppins", "sans-serif"],

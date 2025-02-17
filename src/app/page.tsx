@@ -1,5 +1,4 @@
 import Button from "@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
   return (

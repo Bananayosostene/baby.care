@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import {
   Bell,
   Settings,
@@ -11,11 +12,38 @@ import {
   Clock,
   ChevronRight,
   AlertTriangle,
+  LucideIcon,
 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+interface Analytics {
+  cryingTime: string;
+  peakActivity: string;
+  calmPeriods: string;
+}
+interface AlertItem {
+  title: string;
+  description: string;
+}
+
+interface DummyData {
+  babyName: string;
+  currentState: string;
+  alerts: AlertItem[];
+  audioLibrary: string[];
+  soothing: string[];
+  analytics: Analytics;
+}
+
+interface AnalyticsCardProps {
+  icon: LucideIcon;
+  title: string;
+  value: string;
+  color: string;
+}
+
 // Dummy data
-const DUMMY_DATA = {
+const DUMMY_DATA: DummyData = {
   babyName: "Alex",
   currentState: "calm",
   alerts: [
@@ -29,7 +57,12 @@ const DUMMY_DATA = {
     },
   ],
   audioLibrary: ["Parent Voices", "Lullabies", "White Noise"],
-  soothing: ["Lullaby 1", "Mom's Voice", "White Noise", "Dad's Voice"],
+  soothing: [
+    "Lullaby 1",
+    "Mom&apos;s Voice",
+    "White Noise",
+    "Dad&apos;s Voice",
+  ],
   analytics: {
     cryingTime: "45 mins",
     peakActivity: "2:30 PM",
@@ -42,16 +75,18 @@ const BabyMonitorDashboard = () => {
   const [currentState, setCurrentState] = useState(DUMMY_DATA.currentState);
   const [volume, setVolume] = useState(50);
 
-  const getStateColor = (state) => {
+  type StateColor = "crying" | "laughing" | "calm";
+
+  const getStateColor = (state: string) => {
     const colors = {
       crying: "bg-red-100",
       laughing: "bg-green-100",
       calm: "bg-blue-100",
     };
-    return colors[state] || "bg-gray-100";
+    return colors[state as StateColor] || "bg-gray-100";
   };
 
-  const AnalyticsCard = ({ icon: Icon, title, value, color }) => (
+  const AnalyticsCard = ({ icon: Icon, title, value, color }: AnalyticsCardProps) => (
     <div className="p-4 bg-gray-50 rounded-lg">
       <Icon className={`h-6 w-6 ${color} mb-2`} />
       <h4 className="font-medium text-gray-800">{title}</h4>
@@ -65,7 +100,7 @@ const BabyMonitorDashboard = () => {
       <nav className="bg-white shadow-sm sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
           <h1 className="text-2xl font-semibold text-gray-800">
-            {DUMMY_DATA.babyName}'s Monitor
+            {DUMMY_DATA.babyName}&apos;s Monitor
           </h1>
           <div className="flex items-center space-x-4">
             <button className="p-2 hover:bg-gray-100 rounded-full relative">
@@ -95,11 +130,13 @@ const BabyMonitorDashboard = () => {
               </p>
               <p className="text-sm text-gray-600 mt-1">Duration: 5 minutes</p>
             </div>
-            <div className="bg-black/10 rounded-lg p-4 w-64 h-48 flex items-center justify-center">
-              <img
+            <div className="bg-black/10 rounded-lg p-4 w-64 h-48 flex items-center justify-center relative">
+              <Image
                 src="/api/placeholder/256/192"
                 alt="Video Feed"
                 className="rounded"
+                width={256}
+                height={192}
               />
             </div>
           </div>
@@ -129,7 +166,7 @@ const BabyMonitorDashboard = () => {
                   min="0"
                   max="100"
                   value={volume}
-                  onChange={(e) => setVolume(e.target.value)}
+                  onChange={(e) => setVolume(parseInt(e.target.value))}
                 />
               </div>
             </div>
@@ -169,7 +206,7 @@ const BabyMonitorDashboard = () => {
 
         {/* Analytics Panel */}
         <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
-          <h3 className="text-lg font-semibold mb-4">Today's Activity</h3>
+          <h3 className="text-lg font-semibold mb-4">Today&apos;s Activity</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <AnalyticsCard
               icon={Clock}
