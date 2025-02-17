@@ -1,24 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
-// import { getCurrentUser } from "@/lib/auth";
-import { headers } from "next/headers";
+import { checkAuth } from "@/lib/authCheck";
 
 export async function POST(request: NextRequest) {
   try {
-        const headersList = await headers();
-         console.log("All headers:", Object.fromEntries(headersList.entries()));
-        const authHeader = headersList.get("authorization");
-        console.log("Auth header:", authHeader);
-    
-    //   const user = await getCurrentUser();
-    //    console.log("Current user:", user);
-      
-    // if (!user) {
-    //     return NextResponse.json({ error: "Unauthorized: login first" }, { status: 401 });
-    // } 
+    const { auth, user, response } = await checkAuth();
+
+    if (!auth || !user) {
+      return response;
+    }
     const body = await request.json();
-    const { username, email, password } = body;
+    const { username, email, password, token } = body;
+
+    const invitation = await prisma.invitations.findUnique({
+      where: { token },
+    });
+
+    if (!invitation || invitation.isUsed) {
+      return NextResponse.json(
+        { error: "Invalid or expired invitation" },
+        { status: 400 }
+      );
+    }
+     if (invitation.email !== email) {
+       return NextResponse.json(
+         { error: "Email does not match invitation" },
+         { status: 400 }
+       );
+     }
 
     // Check if user already exists
     const existingUser = await prisma.user.findUnique({
@@ -39,9 +49,15 @@ export async function POST(request: NextRequest) {
     const newUser = await prisma.user.create({
       data: {
         username,
-        email,
+        email: invitation.email,
         password: hashedPassword,
+        role: invitation.role || "family",
       },
+    });
+
+    await prisma.invitations.update({
+      where: { id: invitation.id },
+      data: { isUsed: true },
     });
     return NextResponse.json(
       { message: "User created successfully" },
