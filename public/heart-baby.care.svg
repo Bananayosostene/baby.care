@@ -1,0 +1,59 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF69B4"/>
+      <stop offset="40%" style="stop-color:#FF1493"/>
+      <stop offset="100%" style="stop-color:#C71585"/>
+    </linearGradient>
+    <radialGradient id="starGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#FFD700"/>
+      <stop offset="70%" style="stop-color:#FFA500"/>
+      <stop offset="100%" style="stop-color:#FF8C00"/>
+    </radialGradient>
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main heart shape with enhanced curves -->
+  <path d="M50 85
+           C50 85, 90 60, 90 35
+           C90 15, 60 10, 50 30
+           C40 10, 10 15, 10 35
+           C10 60, 50 85, 50 85 Z"
+        fill="url(#heartGradient)"
+        stroke="#FF1493"
+        stroke-width="1.5"
+        filter="url(#glow)"/>
+  
+  <!-- Larger star -->
+  <path d="M30 30 L34 39 L44 39 L36 45 L39 54 L30 48 L21 54 L24 45 L16 39 L26 39 Z"
+        fill="url(#starGradient)"
+        stroke="#FFD700"
+        stroke-width="0.8"
+        filter="url(#glow)"/>
+  
+  <!-- Smaller star -->
+  <path d="M65 25 L67 31 L73 31 L68 35 L70 41 L65 37 L60 41 L62 35 L57 31 L63 31 Z"
+        fill="url(#starGradient)"
+        stroke="#FFD700"
+        stroke-width="0.8"
+        filter="url(#glow)"/>
+        
+  <!-- Decorative sparkles -->
+  <circle cx="75" cy="45" r="1" fill="#FFF" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="25" cy="45" r="1" fill="#FFF" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  <circle cx="50" cy="70" r="1" fill="#FFF" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite" begin="1s"/>
+  </circle>
+</svg>

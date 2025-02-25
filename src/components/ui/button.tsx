@@ -12,13 +12,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      "inline-flex items-center justify-center  font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2";
+      "inline-flex items-center justify-center border font-medium transition-colors focus:outline-none focus-visible:ring focus-visible:ring-offset";
 
     const variantStyles = {
       primary:
-        "bg-primary dark:bg-primary bg-primary-500  px-4 py-2 rounded-md w-[20rem] text-sm  text-white hover:bg-primary-600 focus-visible:ring-primary",
+        "border-gray-300 h-[2.5rem] bg-bt-primary hover:bg-bt-primary2 dark:bg-bt-primary dark:hover:bg-bt-primary2 dark:border-gray-700 text-white  rounded-r-md px-2  focus-visible:ring-bt-primary",
       secondary:
-        "text-primary border border-primary  px-4 py-2 rounded-md w-[20rem] hover:bg-btn-hover focus-visible:ring-secondary-500",
+        "border-bt-primary text-bt-primary hover:border-bt-primary2 focus-visible:ring-bt-primary2",
       outline:
         " border-2 border-primary text-tx-third  dark:text-tx-primary rounded-md px-5 py-1 skew-x-[-20deg]",
       signUp:

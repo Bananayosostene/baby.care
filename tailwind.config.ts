@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        sm: "5px",
+        sm: "3px",
         md: "6px",
         lg: "8px",
         xl: "16px",
@@ -20,14 +20,14 @@ const config: Config = {
         bg: {
           primary: "#F9F9FB",
           secondary: "#1A1A1A",
-          third: "#2C2C2E",
+          third: "#000000",
           fourth: "#1E1E1E",
           fifth: "#2D2D2D",
         },
         tx: {
           primary: "#FFFFFF",
           secondary: "#808080",
-          third: "#27272A",
+          third: "#000000",
           success: "#00BA7C",
           success2: "#FF9B4B",
         },
