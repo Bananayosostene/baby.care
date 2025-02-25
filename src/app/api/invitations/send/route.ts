@@ -1,7 +1,7 @@
 // invitations/send
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { generateToken, signupToken } from "@/lib/jwt";
+import { signupToken } from "@/lib/jwt";
 import { sendInvitationEmail } from "@/utils/email";
 import { checkAuth } from "@/lib/authCheck";
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
        if (existingUser) {
          return NextResponse.json(
-           { error: "User is already invited" },
+           { error: "User is already registered" },
            { status: 409 }
          );
        }
@@ -46,8 +46,7 @@ export async function POST(request: NextRequest) {
            createdAt: new Date(),
            inviterId: user.id,
          },
-       });
-         
+       });         
          await sendInvitationEmail(email, token);
 
          return NextResponse.json(

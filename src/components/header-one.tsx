@@ -12,13 +12,13 @@ export default function Header() {
       <div className="flex gap-10 justify-center items-center">
         <div className="flex gap-4 justify-center items-center cursor-pointer text-2xl">
           <Image
-            src="/heart-baby.care.svg"
+            src="/hive-blockchain.svg"
             alt="Baby Care Logo"
             width={32}
             height={32}
             className="text-bt-primary"
           />
-          <p className="font-bold">Baby Care</p>
+          <p className="text-sm text-tx-secondary">baby.ai</p>
         </div>
         <SectionHeader />
         <Link href="./">Home</Link>
